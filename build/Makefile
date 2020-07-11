@@ -23,6 +23,7 @@ INCLUDEDIRS	:= ../imax6ull	\
 			   ../usr/usr_common	\
 			   ../usr/usr_delay		\
 			   ../usr/usr_clk		\
+			   ../usr/usr_int		\
 			   ../usr/usr_uart		\
 			   ../usr/usr_led		\
 			   ../usr/usr_beep		\
@@ -33,6 +34,7 @@ SRCDIRS	:= 	   ../imax6ull	\
 			   ../usr/usr_common	\
 			   ../usr/usr_delay		\
 			   ../usr/usr_clk		\
+			   ../usr/usr_int		\
 			   ../usr/usr_uart		\
 			   ../usr/usr_led		\
 			   ../usr/usr_beep		\
@@ -79,4 +81,4 @@ print:
 
 clean:
 	#rm -rf ${TARGET}.bin $(OBJDIR)${TARGET}.elf $(OBJDIR)${TARGET}.dis $(OBJDIR)*.o
-	rm -rf *.bin ${TARGET}.elf ${TARGET}.dis $(OBJDIR)*.o load.imx
+	rm -rf *.bin *.elf *.dis load.imx $(OBJDIR)*.o
