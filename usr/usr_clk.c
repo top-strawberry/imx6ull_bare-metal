@@ -1,12 +1,8 @@
-#include "MCIMX6Y2.h"
-
-#include "usr_common.h"
 #include "usr_clk.h"
-#include "usr_led.h"
 
 
 
-// 使能外设时钟 
+// 使能外设时钟
 void usr_clk_set_enable(FunctionalState NewState)
 {
     if(NewState == enable){
@@ -30,12 +26,12 @@ void usr_clk_set_enable(FunctionalState NewState)
 
 
 void usr_clk_init(void)
-{ 
+{
     //usr_clk_set_enable(disable);//关闭外设时钟
 
-    //开始设置系统时钟(包括PLL1、PLL2、PLL3、PLL4、PLL5、PLL6、PLL7)    
-    
-    //开始设置PLL1  1056MHz 
+    //开始设置系统时钟(包括PLL1、PLL2、PLL3、PLL4、PLL5、PLL6、PLL7)
+
+    //开始设置PLL1  1056MHz
     CCM->CACRR &= ~(0x3 << ARM_PODF);       //清除这3位
     CCM->CACRR |= cacrr_div4 << ARM_PODF;   //设置4分频
 
@@ -69,10 +65,10 @@ void usr_clk_init(void)
     CCM_ANALOG->PFD_480 |=  (19 << PFD3_FRAC);
     CCM_ANALOG->PFD_480 |=  (17 << PFD2_FRAC);
     CCM_ANALOG->PFD_480 |=  (16 << PFD1_FRAC);
-    CCM_ANALOG->PFD_480 |=  (12 << PFD0_FRAC);    
+    CCM_ANALOG->PFD_480 |=  (12 << PFD0_FRAC);
     //结束设置PLL3
 
-    //开始设置ARM_CLK_ROOT内核时钟528MHz 
+    //开始设置ARM_CLK_ROOT内核时钟528MHz
     CCM->CACRR |= cacrr_div2 << ARM_PODF;   //设置2分频
     //结束设置ARM_CLK_ROOT内核时钟
 
@@ -91,9 +87,9 @@ void usr_clk_init(void)
     //开始设置PERCLK_CLK_ROOT
     CCM->CSCMR1 &= ~(0x3f << PERCLK_PODF);
     CCM->CSCMR1 |= perclk_podf_div1 << PERCLK_PODF;
-    //结束设置PERCLK_CLK_ROOT 
+    //结束设置PERCLK_CLK_ROOT
 
-    //配置UART时钟源 480MHz / 6 = 80MHz    
+    //配置UART时钟源 480MHz / 6 = 80MHz
     CCM->CSCDR1 &= ~(0x1 << UART_CLK_SEL); //选择时钟源
     CCM->CSCDR1 &= ~(0x3f << UART_CLK_PODF);//
     CCM->CSCDR1 |= clk_podf_div1 << UART_CLK_PODF;//1分频
@@ -101,3 +97,9 @@ void usr_clk_init(void)
     //使能时钟
     usr_clk_set_enable(enable);
 }
+
+
+
+
+
+

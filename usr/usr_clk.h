@@ -1,6 +1,15 @@
 #ifndef __USR_CLK_H
 #define __USR_CLK_H
 
+#include "fsl_common.h"
+#include "MCIMX6Y2.h"
+#include "core_ca7.h"
+#include "usr_common.h"
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 typedef enum
 {
     cacrr_div1 = 0,
@@ -138,9 +147,15 @@ typedef enum
     USDHC1_PODF     = 11,
     USDHC2_PODF     = 16,
     BCH_PODF        = 19,
-    GPMI_PODF       = 22,    
-} emCCM_CSCDR1_REG_BIT; 
+    GPMI_PODF       = 22,
+} emCCM_CSCDR1_REG_BIT;
 
-
+#ifdef __cplusplus
+extern "C"{
+#endif
 
 #endif
+
+
+
+

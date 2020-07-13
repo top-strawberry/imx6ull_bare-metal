@@ -6,7 +6,7 @@ SFLAGS			:=
 #-std=c99 不能与 -Wa,-mimplicit-it=thumb 同时用？
 CFLAGS			:= -Wa,-mimplicit-it=thumb
 
-LIBS			:= -lgcc 
+LIBS			:= -lgcc
 LIBPATH 		:= -L /home/i.max6ull/opt/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf/4.9.4
 
 
@@ -20,25 +20,15 @@ OBJDIR		:= ../obj/
 INCLUDEDIRS	:= ../imax6ull	\
 			   ../utils/stdio/include \
 			   ../main		\
-			   ../usr/usr_common	\
-			   ../usr/usr_delay		\
-			   ../usr/usr_clk		\
-			   ../usr/usr_int		\
-			   ../usr/usr_uart		\
-			   ../usr/usr_led		\
-			   ../usr/usr_beep		\
-			   ../usr/usr_key	
+			   ../usr	    \
+			   ../bsp	    \
+
 SRCDIRS	:= 	   ../imax6ull	\
 			   ../utils/stdio/lib \
 			   ../main		\
-			   ../usr/usr_common	\
-			   ../usr/usr_delay		\
-			   ../usr/usr_clk		\
-			   ../usr/usr_int		\
-			   ../usr/usr_uart		\
-			   ../usr/usr_led		\
-			   ../usr/usr_beep		\
-			   ../usr/usr_key
+			   ../usr	    \
+			   ../bsp	    \
+
 
 INCLUDE		:= $(patsubst %, -I %, $(INCLUDEDIRS))
 
@@ -57,10 +47,10 @@ VPATH		:= $(SRCDIRS)
 
 
 ${TARGET}.bin : ${OBJS}
-	${LD} -Timax6ull.lds -o ${TARGET}.elf $^ $(LIBS) $(LIBPATH) 
+	${LD} -Timax6ull.lds -o ${TARGET}.elf $^ $(LIBS) $(LIBPATH)
 	${OBJDUMP} -D ${TARGET}.elf > ${TARGET}.dis
 	${OBJCOPY} -O binary -S ${TARGET}.elf $@
- 
+
 $(SOBJS) : $(OBJDIR)%.o : %.S
 	$(CC) $(FLAGS) $(SFLAGS) $(INCLUDE) -o $@ $<
 

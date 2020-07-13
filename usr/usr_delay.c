@@ -1,7 +1,6 @@
-#include "usr_common.h"
 #include "usr_delay.h"
 
-// 短延时 
+// 短延时
 static void usr_delay_short(volatile uint32_t n)
 {
     while(n--){}
@@ -16,3 +15,5 @@ void usr_delay_ms(volatile uint32_t ms)
         usr_delay_short(0x7ff);
     }
 }
+
+

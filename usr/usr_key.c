@@ -1,8 +1,4 @@
-#include "MCIMX6Y2.h"
-#include "fsl_iomuxc.h"
-#include "usr_key.h"
-
-extern void usr_delay_ms(volatile uint32_t ms);
+#include "usr_app.h"
 
 void usr_key_init()
 {
@@ -28,7 +24,7 @@ uint8_t usr_key_get_value(void)
                 release = 0;
                 ret = KEY_PRESS;
             }
-        }        
+        }
     }else if(usr_key_read() == KEY_RELEASE){
         release = 1;
         ret = KEY_RELEASE;
@@ -36,4 +32,10 @@ uint8_t usr_key_get_value(void)
 
     return ret;
 }
+
+
+
+
+
+
 
