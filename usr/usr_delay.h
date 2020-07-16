@@ -1,7 +1,7 @@
 #ifndef __USR_DELAY_H
 #define __USR_DELAY_H
 
-#include "usr_common.h"
+#include "main.h"
 
 #ifdef __cplusplus
 extern "C"{

@@ -2,7 +2,7 @@
 
 static stSYS_IRQ_HANDLER irq_table[NUMBER_OF_INT_VECTORS];
 
-static void bsp_int_system_regiser_irq_handler(IRQn_Type irq_num, system_irq_handler_t irq_handler, void *arg)
+void bsp_int_system_regiser_irq_handler(IRQn_Type irq_num, system_irq_handler_t irq_handler, void *arg)
 {
     if(irq_handler == NULL){
         INT_LOG("bsp_int_system_regiser_irq_handler irq_handler is null\r\n");
@@ -41,7 +41,7 @@ void system_irq_handler(uint32_t gicc_iar)
 }
 
 
-void bsp_int_init(Usr_app * topInfo)
+void bsp_int_init(TOP_INFO * topInfo)
 {
     Bsp_int * self = &topInfo->bsp_int;
 

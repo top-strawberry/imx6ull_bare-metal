@@ -1,10 +1,7 @@
-#ifndef __USR_CLK_H
-#define __USR_CLK_H
+#ifndef __BSP_CLK_H
+#define __BSP_CLK_H
 
-#include "fsl_common.h"
-#include "MCIMX6Y2.h"
-#include "core_ca7.h"
-#include "usr_common.h"
+#include "main.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -150,8 +147,12 @@ typedef enum
     GPMI_PODF       = 22,
 } emCCM_CSCDR1_REG_BIT;
 
+
+extern void bsp_clk_init(void);
+
+
 #ifdef __cplusplus
-extern "C"{
+}
 #endif
 
 #endif

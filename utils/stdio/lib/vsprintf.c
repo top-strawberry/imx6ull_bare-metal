@@ -25,7 +25,7 @@
 #include "string.h"
 #include "div64.h"
 #include "vsprintf.h"
-#include "usr_uart.h"
+#include "bsp_uart.h"
 
 #define unlikely(x) __builtin_expect(!!(x), 0)
 

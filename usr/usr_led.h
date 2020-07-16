@@ -1,10 +1,8 @@
 #ifndef __USR_LED_H
 #define __USR_LED_H
 
-#include "fsl_common.h"
-#include "fsl_iomuxc.h"
-#include "MCIMX6Y2.h"
-#include "usr_common.h"
+#include "main.h"
+
 
 #ifdef __cplusplus
 extern "C"{

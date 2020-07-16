@@ -1,5 +1,5 @@
-#ifndef __USR_INT_H
-#define __USR_INT_H
+#ifndef __BSP_INT_H
+#define __BSP_INT_H
 
 #include "usr_common.h"
 #include "main.h"
@@ -24,9 +24,8 @@ struct Bsp_int
     void (*bsp_int_system_regiser_irq_handler)(IRQn_Type irq_num, system_irq_handler_t irq_handler, void *arg);
 };
 
-extern void bsp_gpio_clear_int_flag(GPIO_Type *gpio, uint32_t pin);
-extern uint8_t bsp_gpio_pin_read(GPIO_Type *gpio, uint32_t pin);
-
+extern void bsp_int_init(TOP_INFO * topInfo);
+extern void bsp_int_system_regiser_irq_handler(IRQn_Type irq_num, system_irq_handler_t irq_handler, void *arg);
 
 #ifdef __cplusplus
 }

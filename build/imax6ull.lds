@@ -9,9 +9,9 @@ SECTIONS
 	.rodata ALIGN(4) : {*(.rodata*)}
 	.data ALIGN(4) : {*(.data)}
 	. = ALIGN(4);
-	__bss_top = .;
+	__bss_top = . ;
 	.bss ALIGN(4) : {*(.bss) *(COMMON)}
 	. = ALIGN(4);
-	__bss_tail = .;
+	__bss_tail = . ;
 
 }

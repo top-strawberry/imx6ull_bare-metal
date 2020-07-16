@@ -1,7 +1,6 @@
-#ifndef __USR_UART_H
-#define __USR_UART_H
+#ifndef __BSP_UART_H
+#define __BSP_UART_H
 
-#include "usr_common.h"
 #include "main.h"
 
 #ifdef __cplusplus
@@ -9,6 +8,8 @@ extern "C"{
 #endif
 
 #define UART_LOG            PRINTF
+#define UART_CLK    		(80000000U)
+
 
 typedef enum {
     rfdiv_div1 = 5,//101 Divide input clock by 1
@@ -69,9 +70,9 @@ typedef enum {
 } emUART_UCR4_REG_BIT;
 
 
-void putc(unsigned char c);
-void puts(char *str);
-unsigned char getc(void);
+//extern void putc(unsigned char c);
+//extern void puts(char *str);
+//extern unsigned char getc(void);
 
 
 //typedef struct Usr_uart Usr_uart;
@@ -79,6 +80,10 @@ unsigned char getc(void);
 //{
 //
 //};
+
+
+extern int8_t bsp_uart_init(UART_Type *uart, uint32_t baud);
+
 
 #ifdef __cplusplus
 }

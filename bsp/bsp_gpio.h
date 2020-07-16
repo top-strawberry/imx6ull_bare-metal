@@ -2,8 +2,8 @@
 // Created by Administrator on 2020/7/12 0012.
 //
 
-#ifndef __USR_GPIO_H
-#define __USR_GPIO_H
+#ifndef __BSP_GPIO_H
+#define __BSP_GPIO_H
 
 #include "usr_common.h"
 #include "main.h"
@@ -42,6 +42,8 @@ typedef struct {
 
 extern int8_t bsp_gpio_init(GPIO_Type *gpio, uint32_t pin, stPIN_CFG *cfg);
 extern void bsp_gpio_int_enable(GPIO_Type *gpio, uint32_t pin);
+extern void bsp_gpio_clear_int_flag(GPIO_Type *gpio, uint32_t pin);
+extern uint8_t bsp_gpio_pin_read(GPIO_Type *gpio, uint32_t pin);
 
 
 

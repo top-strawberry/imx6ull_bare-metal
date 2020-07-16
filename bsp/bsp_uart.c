@@ -1,19 +1,17 @@
 #include "usr_app.h"
 
-#define UART_CLK    (80000000U)
-
 //通过UART1发送一个字符
 void putc(unsigned char c)
 {
-    while(((UART1->USR2 >> 3 ) & 0X01) == 0);
-    UART1->UTXD = c;
+	while(((UART1->USR2 >> 3 ) & 0X01) == 0);
+	UART1->UTXD = c;
 }
 
 //通过串口接收数据
 unsigned char getc(void)
 {
-     while(((UART1->USR2) & 0X01) == 0); //等待有数据可以读取
-     return UART1->URXD;
+	 while(((UART1->USR2) & 0X01) == 0); //等待有数据可以读取
+	 return UART1->URXD;
 }
 
 // 通过串口发送一串字符
@@ -33,7 +31,7 @@ void raise(int sig_nr)
 
 }
 
-void usr_uart_en_set(UART_Type *uart, FunctionalState NewState)
+void bsp_uart_en_set(UART_Type *uart, FunctionalState NewState)
 {
     if(NewState == enable){
         uart->UCR1 |= 0x1 << UARTEN;
@@ -42,7 +40,7 @@ void usr_uart_en_set(UART_Type *uart, FunctionalState NewState)
     }
 }
 
-static int8_t usr_uart_baud_set(UART_Type *uart, uint32_t baud)
+static int8_t bsp_uart_baud_set(UART_Type *uart, uint32_t baud)
 {
     if(uart == NULL){
         return -1;
@@ -144,7 +142,7 @@ static int8_t usr_uart_baud_set(UART_Type *uart, uint32_t baud)
     return 0;
 }
 
-static void usr_uart_gpio_init(UART_Type *uart)
+static void bsp_uart_gpio_init(UART_Type *uart)
 {
     if(uart == UART1) {
         IOMUXC_SetPinMux(IOMUXC_UART1_TX_DATA_UART1_TX, 0);
@@ -153,7 +151,7 @@ static void usr_uart_gpio_init(UART_Type *uart)
     }
 }
 
-int8_t usr_uart_init(UART_Type *uart, uint32_t baud)
+int8_t bsp_uart_init(UART_Type *uart, uint32_t baud)
 {
     if(uart == NULL){
         return -1;
@@ -161,11 +159,11 @@ int8_t usr_uart_init(UART_Type *uart, uint32_t baud)
 
     //1、配置UART时钟，并开启UART外设时钟。
     //2、配置UART引脚
-    usr_uart_gpio_init(uart);
+    bsp_uart_gpio_init(uart);
 
     //3、失能UART
     uart->UCR1 = 0;
-    usr_uart_en_set(uart, disable);
+    bsp_uart_en_set(uart, disable);
 
     //4、配置UART参数(数据校验，数据位，停止位)
     uart->UCR2 = 0;
@@ -177,13 +175,15 @@ int8_t usr_uart_init(UART_Type *uart, uint32_t baud)
     //设置时钟分频
     uart->UFCR &= ~(0x7 << RFDIV);
     uart->UFCR |= rfdiv_div1 << RFDIV; //1分频
-    usr_uart_baud_set(uart, baud);
+    bsp_uart_baud_set(uart, baud);
     //6、使能UART接收和发送
     uart->UCR2 |= (0x1 << RXEN) | (0x1 << TXEN);
     //7、使能UART
-    usr_uart_en_set(uart, enable);
+    bsp_uart_en_set(uart, enable);
 
     UART_LOG("hello i.max6ull\r\n");
+    //puts("hello i.max6ull\r\n");
+	//putc(0x30);
 
     return 0;
 }

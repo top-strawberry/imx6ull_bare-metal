@@ -6,14 +6,14 @@ void gpio1_io18_irq_handler(IRQn_Type irq_num, void *arg)
 	usr_delay_ms (10);
 	if(bsp_gpio_pin_read (GPIO1, 18) == 0){
 		state = !state;
-		usr_led_set(state);
+		usr_beep_set (state);
 	}
 
     bsp_gpio_clear_int_flag (GPIO1, 18);
 }
 
 
-void usr_exti_init(Usr_app * topInfo)
+void usr_exti_init(TOP_INFO * topInfo)
 {
 	stPIN_CFG key_cfg;
     Bsp_int * bsp_int = &topInfo->bsp_int;

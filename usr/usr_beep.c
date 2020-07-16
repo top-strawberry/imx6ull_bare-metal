@@ -25,7 +25,7 @@ void usr_beep_init(void)
     beep_cfg.dir = gpio_digital_output;
     beep_cfg.output_logic = gpio_set;
     beep_cfg.int_mode = gpio_no_int;
-    bsp_gpio_init(GPIO5, kGPIO5_IO01_LED_PIN, &beep_cfg);
+    bsp_gpio_init(GPIO5, kGPIO5_IO01_BEEP_PIN, &beep_cfg);
 }
 
 

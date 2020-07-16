@@ -1,7 +1,7 @@
 CROSS_COMPILE	?= arm-linux-gnueabihf-
 TARGET			?= imax6ull
 
-FLAGS			:= -Wall -nostdlib -fno-builtin -c -O2
+FLAGS			:= -Wall -nostdlib -fno-builtin -c
 SFLAGS			:=
 #-std=c99 不能与 -Wa,-mimplicit-it=thumb 同时用？
 CFLAGS			:= -Wa,-mimplicit-it=thumb
@@ -18,13 +18,13 @@ OBJDUMP		:= ${CROSS_COMPILE}objdump
 OBJDIR		:= ../obj/
 
 INCLUDEDIRS	:= ../imax6ull	\
-			   ../utils/stdio/include \
+			   ../utils/stdio/include	\
 			   ../main		\
 			   ../usr	    \
 			   ../bsp	    \
 
 SRCDIRS	:= 	   ../imax6ull	\
-			   ../utils/stdio/lib \
+			   ../utils/stdio/lib  \
 			   ../main		\
 			   ../usr	    \
 			   ../bsp	    \
