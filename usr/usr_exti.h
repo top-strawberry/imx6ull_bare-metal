@@ -7,6 +7,7 @@
 extern "C"{
 #endif
 
+#define kGPIO1_IO18_KEY_PIN (18)
 
 extern void usr_exti_init(TOP_INFO * topInfo);
 

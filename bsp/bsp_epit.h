@@ -5,7 +5,7 @@
 extern "C"{
 #endif
 
-#define EPIT1_CLK    		(66000000U)
+#define EPIT_CLK    		(66000000U)
 
 typedef enum {
     EPIT_EN = 0,
@@ -28,7 +28,7 @@ typedef enum {
 } emEPIT_SR_REG_BIT;
 
 extern int8_t bsp_epit_init(EPIT_Type *epit, uint32_t frac, uint32_t value);
-
+extern void bsp_epit_en(EPIT_Type *epit, FunctionalState NewState, uint32_t value);
 
 #ifdef __cplusplus
 }
