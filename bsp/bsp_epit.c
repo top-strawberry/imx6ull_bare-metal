@@ -16,11 +16,8 @@ void bsp_epit_en(EPIT_Type *epit, FunctionalState NewState, uint32_t value)
 
 static void bsp_epit_1_irq_handler(IRQn_Type irq_num, void *arg)
 {
-	static uint8_t state = 0;
-	state = !state;
-
 	if((EPIT1->SR >> EPIT_OCIF) & 0x01){
-		usr_led_set (state);
+		usr_led_trigger ();
 	}
 
 	EPIT1->SR |= 1 << EPIT_OCIF;

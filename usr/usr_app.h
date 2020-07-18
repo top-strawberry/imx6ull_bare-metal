@@ -10,6 +10,8 @@
 #include "bsp_uart.h"
 #include "bsp_gpio.h"
 #include "bsp_epit.h"
+#include "bsp_gpt.h"
+
 
 #include "usr_exti.h"
 #include "usr_led.h"

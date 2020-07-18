@@ -36,7 +36,7 @@ void system_irq_handler(uint32_t gicc_iar)
 {
     IRQn_Type irq_num = gicc_iar & 0x3ff;
 
-    INT_LOG("gicc_iar = %d irq_num = %d\r\n",gicc_iar, irq_num);
+    //INT_LOG("gicc_iar = %d irq_num = %d\r\n",gicc_iar, irq_num);
     irq_table[irq_num].irq_handler(irq_num, irq_table[irq_num].arg);
 }
 
