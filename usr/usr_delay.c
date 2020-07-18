@@ -26,23 +26,22 @@ void usr_delay_us(uint32_t us)
 	old_cnt = EPIT2->CNR;
 	while(1){
 		new_cnt = EPIT2->CNR;
-		if(new_cnt != old_cnt){
-			if(new_cnt < old_cnt){
-				t_cnt += old_cnt -new_cnt;
-			}else{
-				t_cnt += 0xffffffff - new_cnt + old_cnt;
-			}
-			old_cnt = new_cnt;
-			if(t_cnt >= us){
-				break;
-			}
+		if(new_cnt < old_cnt){
+			t_cnt = old_cnt -new_cnt;
+		}else{
+			t_cnt = 0xffffffff - new_cnt + old_cnt;
+		}
+
+		if(t_cnt >= us){
+			break;
 		}
 	}
 }
 
 void usr_delay_ms(uint32_t ms)
 {
-	while(ms--){
+	uint32_t i = 0;
+	for(i = 0; i < ms; i++){
 		usr_delay_us(1000);
 	}
 }
@@ -51,7 +50,7 @@ void usr_delay_ms(uint32_t ms)
 int8_t usr_delay_init(void)
 {
 	EPIT2->CR = 0;
-	EPIT2->CR = (1 << EPIT_ENMOD) | (1 << EPIT_OCIEN) | (1 << EPIT_RLD) | (66 << EPIT_PRESCALAR) |(1 << EPIT_CLKSRC);
+	EPIT2->CR = (1 << EPIT_ENMOD) | (1 << EPIT_OCIEN) | (1 << EPIT_RLD) | (132 << EPIT_PRESCALAR) |(1 << EPIT_CLKSRC);
 	EPIT2->LR = 0xffffffff;//加载寄存器，倒计数值
 	EPIT2->CMPR = 0;
 	EPIT2->CR |= 1 << EPIT_EN;
