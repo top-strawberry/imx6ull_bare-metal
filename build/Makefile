@@ -19,6 +19,7 @@ OBJDIR		:= ../obj/
 
 INCLUDEDIRS	:= ../imax6ull	\
 			   ../utils/stdio/include	\
+			   ../usr/include           \
 			   ../main		\
 			   ../usr	    \
 			   ../bsp	    \

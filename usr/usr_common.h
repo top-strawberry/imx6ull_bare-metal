@@ -28,6 +28,19 @@ typedef unsigned long long	u64;
 
 typedef enum {disable = 0, enable = !disable} FunctionalState;
 
+typedef enum
+{
+    div1 = 0,
+    div2 = 1,
+    div3 = 2,
+    div4 = 3,
+    div5 = 4,
+    div6 = 5,
+    div7 = 6,
+    div8 = 7,
+} emGEN_DIV;
+
+
 #endif
 
 

@@ -26,10 +26,9 @@ int8_t usr_app_init(TOP_INFO *self)
 //	usr_exti_init (topInfo);
 //	bsp_epit_init (EPIT1, 0, EPIT_CLK /2);
 //	bsp_epit_init (EPIT2, 0, EPIT_CLK /100);
-
 	bsp_gpt_init(GPT1);
 	bsp_gpt_init(GPT2);
-
+	bsp_lcd_init();
 
     return 0;
 }

@@ -7,6 +7,7 @@
 extern "C"{
 #endif
 
+
 typedef enum
 {
     cacrr_div1 = 0,
@@ -60,6 +61,19 @@ typedef enum
 
 typedef enum
 {
+    ccm_lcdif1_pred_div1 = 0,
+    ccm_lcdif1_pred_div2 = 1,
+    ccm_lcdif1_pred_div3 = 2,
+    ccm_lcdif1_pred_div4 = 3,
+    ccm_lcdif1_pred_div5 = 4,
+    ccm_lcdif1_pred_div6 = 5,
+    ccm_lcdif1_pred_div7 = 6,
+    ccm_lcdif1_pred_div8 = 7,
+} emCCM_LCDIF1_PRED_DIV;
+
+
+typedef enum
+{
     ARM_PODF = 0,
 } emCCM_CACRR_REG_BIT;
 
@@ -83,6 +97,16 @@ typedef enum
     PERIPH2_CLK_SEL     = 26,
     PERIPH_CLK2_PODF    = 27
 } emCCM_CBCDR_REG_BIT;
+
+typedef enum
+{
+    CCM_PERIPH_CLK2_SEL     = 12,
+	CCM_PRE_PERIPH_CLK_SEL = 18,
+	CCM_PERIPH2_CLK2_SEL = 20,
+	CCM_PRE_PERIPH2_CLK_SEL =21,
+	CCM_LCDIF1_PODF = 23,
+} emCCM_CSCMR_REG_BIT;
+
 
 typedef enum
 {
@@ -146,6 +170,39 @@ typedef enum
     BCH_PODF        = 19,
     GPMI_PODF       = 22,
 } emCCM_CSCDR1_REG_BIT;
+
+
+typedef enum
+{
+    CCM_LCDIF1_CLK_SEL   = 9,
+	CCM_LCDIF1_PRED = 12,
+	CCM_LCDIF1_PRE_CLK_SEL = 15,
+	CCM_ECSPI_CLK_SEL = 18,
+	CCM_ECSPI_CLK_PODF = 19,
+} emCCM_CSCDR2_REG_BIT;
+
+
+
+typedef enum
+{
+    CCM_DIV_SELECT    = 0,
+	CCM_POWERDOWN = 12,
+	CCM_ENABLE = 13,
+	CCM_BYPASS_CLK_SRC = 14,
+	CCM_BYPASS = 16,
+	CCM_PFD_OFFSET_EN = 18,
+	CCM_POST_DIV_SELECT = 19,
+	CCM_LOCK = 31,
+} emCCM_ANALOG_PLL_VIDEO_REG_BIT;
+
+
+typedef enum
+{
+    CCM_VIDEO_DIV    = 30,
+
+} emCCM_ANALOG_MISC2_REG_BIT;
+
+
 
 
 extern void bsp_clk_init(void);

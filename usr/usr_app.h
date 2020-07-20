@@ -11,6 +11,7 @@
 #include "bsp_gpio.h"
 #include "bsp_epit.h"
 #include "bsp_gpt.h"
+#include "bsp_lcd.h"
 
 
 #include "usr_exti.h"
@@ -18,6 +19,8 @@
 #include "usr_beep.h"
 #include "usr_key.h"
 #include "usr_delay.h"
+#include "usr_lcd.h"
+
 
 struct Usr_app
 {

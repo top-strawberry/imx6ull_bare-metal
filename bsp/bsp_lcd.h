@@ -1,0 +1,149 @@
+#ifndef __BSP_LCD_H
+#define __BSP_LCD_H
+
+#include "main.h"
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+#define kLCD_4342			0x4342
+#define kLCD_FRAMBUFFER 	0x89000000
+#define kGPIO3_IO03_LCD_VSYNC_PIN	 	(3)
+#define kGPIO3_IO12_LCD_DATA07_PIN 		(12)
+#define kGPIO3_IO20_LCD_DATA15_PIN 		(20)
+#define kGPIO3_IO28_LCD_DATA23_PIN 		(28)
+#define kGPIO1_IO08_LCD_BL_PIN 			(8)
+
+#define kLCD_RESET_SET()		LCDIF->CTRL |= 1 << LCD_SFTRST;
+#define kLCD_RESET_CLR() 		LCDIF->CTRL &= ~(1 << LCD_SFTRST);
+#define kLCD_ENABLE()			LCDIF->CTRL |= 1 << LCD_RUN;
+
+#define kLCD_BL_SET()			GPIO1->DR |= 1 << kGPIO1_IO08_LCD_BL_PIN;
+#define kLCD_BL_CLR() 			GPIO1->DR &= ~(1 << kGPIO1_IO08_LCD_BL_PIN);
+
+
+
+#define LCD_LOG     PRINTF
+
+typedef struct{
+	uint16_t height;
+	uint16_t width;
+	uint8_t pix_size;//每个像素所占的字节数
+	uint16_t vspw;
+	uint16_t vbpd;
+	uint16_t vfpd;
+	uint16_t hspw;
+	uint16_t hbpd;
+	uint16_t hfpd;
+	uint32_t frambuffer; //显存起始地址
+	uint32_t forecolor;	//	前景色
+	uint32_t backcolor;	//	背景色
+} stLCD_DEV_INFO;
+
+
+typedef enum {
+    LCD_RUN = 0,
+	LCD_DATA_FORMAT_24_BIT = 1,
+	LCD_DATA_FORMAT_18_BIT = 2,
+	LCD_DATA_FORMAT_16_BIT = 3,
+	LCD_MASTER = 5,
+	LCD_ENABLE_PXP_HANDSHAKE = 6,
+	LCD_RGB_TO_YCBCR422_CSC = 7,
+	LCD_WORD_LENGTH = 8,
+	LCD_LCD_DATABUS_WIDTH = 10,
+	LCD_CSC_DATA_SWIZZLE = 12,
+	LCD_INPUT_DATA_SWIZZLE = 14,
+	LCD_DATA_SELECT = 16,
+	LCD_DOTCLK_MODE = 17,
+	LCD_VSYNC_MODE = 18,
+	LCD_BYPASS_COUNT = 19,
+	LCD_DVI_MODE = 20,
+	LCD_SHIFT_NUM_BITS = 21,
+	LCD_DATA_SHIFT_DIR = 26,
+	LCD_WAIT_FOR_VSYNC_EDGE = 27,
+	LCD_READ_WRITEB = 28,
+	LCD_YCBCR422_INPUT = 29,
+	LCD_CLKGATE = 30,
+	LCD_SFTRST = 31,
+} emLCDIF_CTRL_REG_BIT;
+
+typedef enum {
+    LCD_RESET = 0,
+	LCD_MODE86 = 1,
+	LCD_BUSY_ENABLE = 2,
+	LCD_CTRL1_RSRVD0 = 3,
+	LCD_VSYNC_EDGE_IRQ = 8,
+	LCD_CUR_FRAME_DONE_IRQ = 9,
+	LCD_UNDERFLOW_IRQ = 10,
+	LCD_OVERFLOW_IRQ = 11,
+	LCD_VSYNC_EDGE_IRQ_EN = 12,
+	LCD_CUR_FRAME_DONE_IRQ_EN = 13,
+	LCD_UNDERFLOW_IRQ_EN = 14,
+	LCD_OVERFLOW_IRQ_EN = 15,
+	LCD_BYTE_PACKING_FORMAT = 16,
+	LCD_IRQ_ON_ALTERNATE_FIELDS = 20,
+	LCD_FIFO_CLEAR = 21,
+	LCD_START_INTERLACE_FROM_SECOND_FIELD = 22,
+	LCD_INTERLACE_FIELDS = 23,
+	LCD_RECOVER_ON_UNDERFLOW = 24,
+	LCD_BM_ERROR_IRQ = 25,
+	LCD_BM_ERROR_IRQ_EN = 26,
+	LCD_COMBINE_MPU_WR_STRB = 27,
+} emLCDIF_CTRL1_REG_BIT;
+
+typedef enum {
+    LCD_H_COUNT = 0,
+	LCD_V_COUNT = 16,
+} emLCDIF_TRANSFER_COUNT_REG_BIT;
+
+
+
+typedef enum {
+    LCD_VSYNC_PULSE_WIDTH = 0,
+	LCD_HALF_LINE_MODE = 18,
+	LCD_HALF_LINE = 19,
+	LCD_VSYNC_PULSE_WIDTH_UNIT = 20,
+	LCD_VSYNC_PERIOD_UNIT = 21,
+	LCD_RSRVD1 = 22,
+	LCD_ENABLE_POL = 24,
+	LCD_DOTCLK_POL = 25,
+	LCD_HSYNC_POL = 26,
+	LCD_VSYNC_POL = 27,
+	LCD_ENABLE_PRESENT = 28,
+	LCD_VSYNC_OEB = 29,
+	LCD_RSRVD2 =30,
+} emLCDIF_VDCTRL0_REG_BIT;
+
+typedef enum {
+    LCD_HSYNC_PERIOD = 0,
+	LCD_HSYNC_PULSE_WIDTH = 18
+} emLCDIF_VDCTRL2_REG_BIT;
+
+typedef enum {
+    LCD_VERTICAL_WAIT_CNT = 0,
+	LCD_HORIZONTAL_WAIT_CNT = 16,
+	LCD_VSYNC_ONLY = 28,
+	LCD_MUX_SYNC_SIGNALS = 29,
+} emLCDIF_VDCTRL3_REG_BIT;
+
+typedef enum {
+    LCD_DOTCLK_H_VALID_DATA_CNT = 0,
+	LCD_SYNC_SIGNALS_ON = 18,
+	LCD_VDCTRL4_RSRVD0 = 19,
+	LCD_DOTCLK_DLY_SEL = 29,
+} emLCDIF_VDCTRL4_REG_BIT;
+
+
+
+extern int8_t bsp_lcd_init();
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
+
+
+
+

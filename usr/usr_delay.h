@@ -8,6 +8,7 @@ extern "C"{
 #endif
 
 extern void usr_delay_ms(volatile uint32_t ms);
+extern int8_t usr_delay_init(void);
 
 
 #ifdef __cplusplus
