@@ -12,6 +12,8 @@
 #include "bsp_epit.h"
 #include "bsp_gpt.h"
 #include "bsp_lcd.h"
+#include "bsp_rtc.h"
+
 
 
 #include "usr_exti.h"

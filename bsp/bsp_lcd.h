@@ -135,7 +135,7 @@ typedef enum {
 } emLCDIF_VDCTRL4_REG_BIT;
 
 
-
+extern stLCD_DEV_INFO lcd_dev;
 extern int8_t bsp_lcd_init();
 
 #ifdef __cplusplus
