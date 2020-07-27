@@ -34,7 +34,7 @@ typedef enum {
 } emGPIO_OUTPUT;
 
 typedef struct {
-    emGPIO_PIN_DIRECTION dir;
+    emGPIO_PIN_DIRECTION dire;
     uint8_t output_logic;
     emGPIO_INTERRUPT_MODE int_mode;
 } stPIN_CFG;
@@ -44,7 +44,7 @@ extern int8_t bsp_gpio_init(GPIO_Type *gpio, uint32_t pin, stPIN_CFG *cfg);
 extern void bsp_gpio_int_enable(GPIO_Type *gpio, uint32_t pin);
 extern void bsp_gpio_clear_int_flag(GPIO_Type *gpio, uint32_t pin);
 extern uint8_t bsp_gpio_pin_read(GPIO_Type *gpio, uint32_t pin);
-
+extern void bsp_gpio_pin_write(GPIO_Type *gpio, uint32_t pin, uint8_t level);
 
 
 #ifdef __cplusplus

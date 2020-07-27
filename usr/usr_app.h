@@ -5,6 +5,8 @@
 
 #include "stdio.h"
 
+#include "usr_delay.h"
+
 #include "bsp_int.h"
 #include "bsp_clk.h"
 #include "bsp_uart.h"
@@ -13,14 +15,15 @@
 #include "bsp_gpt.h"
 #include "bsp_lcd.h"
 #include "bsp_rtc.h"
-
+#include "bsp_i2c_master.h"
+#include "bsp_gt9147.h"
 
 
 #include "usr_exti.h"
 #include "usr_led.h"
 #include "usr_beep.h"
 #include "usr_key.h"
-#include "usr_delay.h"
+
 #include "usr_lcd.h"
 
 

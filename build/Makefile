@@ -1,5 +1,5 @@
 CROSS_COMPILE	?= arm-linux-gnueabihf-
-TARGET			?= imax6ull
+TARGET			?= test
 
 FLAGS			:= -Wall -nostdlib -fno-builtin -c
 SFLAGS			:=
@@ -72,4 +72,4 @@ print:
 
 clean:
 	#rm -rf ${TARGET}.bin $(OBJDIR)${TARGET}.elf $(OBJDIR)${TARGET}.dis $(OBJDIR)*.o
-	rm -rf *.bin *.elf *.dis load.imx $(OBJDIR)*.o
+	rm -rf *.bin *.elf *.dis *.imx $(OBJDIR)*.o

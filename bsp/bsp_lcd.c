@@ -14,7 +14,7 @@ static uint16_t bsp_lcd_read_id(void)
     IOMUXC_SetPinMux(IOMUXC_LCD_VSYNC_GPIO3_IO03, 0);
     IOMUXC_SetPinConfig(IOMUXC_LCD_VSYNC_GPIO3_IO03, 0x10b0);
 
-    lcd_cfg.dir = gpio_digital_output;
+    lcd_cfg.dire = gpio_digital_output;
     lcd_cfg.output_logic = gpio_set;
     lcd_cfg.int_mode = gpio_no_int;
     bsp_gpio_init(GPIO3, kGPIO3_IO03_LCD_VSYNC_PIN, &lcd_cfg);
@@ -30,7 +30,7 @@ static uint16_t bsp_lcd_read_id(void)
 	IOMUXC_SetPinMux(IOMUXC_LCD_DATA23_GPIO3_IO28, 0);
 	IOMUXC_SetPinConfig(IOMUXC_LCD_DATA23_GPIO3_IO28, 0xF080);
 
-	lcd_cfg.dir = gpio_digital_input;
+	lcd_cfg.dire = gpio_digital_input;
 	bsp_gpio_init(GPIO3, kGPIO3_IO12_LCD_DATA07_PIN, &lcd_cfg);
 	bsp_gpio_init(GPIO3, kGPIO3_IO20_LCD_DATA15_PIN, &lcd_cfg);
 	bsp_gpio_init(GPIO3, kGPIO3_IO28_LCD_DATA23_PIN, &lcd_cfg);
@@ -39,7 +39,9 @@ static uint16_t bsp_lcd_read_id(void)
 	id |= (uint8_t) bsp_gpio_pin_read (GPIO3, kGPIO3_IO20_LCD_DATA15_PIN) << 1;
 	id |= (uint8_t) bsp_gpio_pin_read (GPIO3, kGPIO3_IO12_LCD_DATA07_PIN) << 2;
 
-	if(id == 0) return kLCD_4342;
+	if(id == 0) {
+		return kLCD_4342;
+	}
 
 	return 0;
 }
@@ -106,7 +108,7 @@ static void bsp_lcd_io_init(void)
 	IOMUXC_SetPinConfig (IOMUXC_LCD_VSYNC_LCDIF_VSYNC, 0xb9);
 
 
-	bl_cfg.dir = gpio_digital_output;
+	bl_cfg.dire = gpio_digital_output;
 	bl_cfg.output_logic = gpio_set;
 	bl_cfg.int_mode = gpio_no_int;
 	IOMUXC_SetPinMux (IOMUXC_GPIO1_IO08_GPIO1_IO08, 0);
@@ -212,11 +214,24 @@ int8_t bsp_lcd_init()
 
 	lcd_dev.forecolor = LCD_RED;
     lcd_dev.backcolor = LCD_WHITE;
-    usr_lcd_show_string(10, 40, 260, 32, 32,(char*)"ALPAH IMX6U");
-    usr_lcd_show_string(10, 80, 240, 24, 24,(char*)"RGBLCD TEST");
-    usr_lcd_show_string(10, 110, 240, 16, 16,(char*)"ATOM&ALIENTEK");
-    usr_lcd_show_string(10, 130, 240, 12, 12,(char*)"2020/7/22");
-	usr_lcd_show_xnum(10, 28, 20200722, 8, 16, 0);
+    // usr_lcd_show_string(10, 40, 260, 32, 32,(char*)"ALPAH IMX6U");
+    // usr_lcd_show_string(10, 80, 240, 24, 24,(char*)"RGBLCD TEST");
+    // usr_lcd_show_string(10, 110, 240, 16, 16,(char*)"ATOM&ALIENTEK");
+    // usr_lcd_show_string(10, 130, 240, 12, 12,(char*)"2020/7/22");
+	// usr_lcd_show_xnum(10, 28, 20200722, 8, 16, 0);
+
+	usr_lcd_show_string(50, 110, 100, 16, 16,	(char*)"TP Num	:");  
+	usr_lcd_show_string(50, 130, 100, 16, 16,	(char*)"Point0 X:");  
+	usr_lcd_show_string(50, 150, 100, 16, 16,	(char*)"Point0 Y:");  
+	usr_lcd_show_string(50, 170, 100, 16, 16,	(char*)"Point1 X:");  
+	usr_lcd_show_string(50, 190, 100, 16, 16,	(char*)"Point1 Y:");  
+	usr_lcd_show_string(50, 210, 100, 16, 16,	(char*)"Point2 X:");  
+	usr_lcd_show_string(50, 230, 100, 16, 16,	(char*)"Point2 Y:");  
+	usr_lcd_show_string(200, 130, 100, 16, 16,	(char*)"Point3 X:");  
+	usr_lcd_show_string(200, 150, 100, 16, 16,	(char*)"Point3 Y:");  
+	usr_lcd_show_string(200, 170, 100, 16, 16,	(char*)"Point4 X:");  
+	usr_lcd_show_string(200, 190, 100, 16, 16,	(char*)"Point4 Y:"); 
+
 	return 0;
 }
 

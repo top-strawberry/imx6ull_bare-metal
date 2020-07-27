@@ -16,7 +16,7 @@ void usr_exti_init(TOP_INFO * topInfo)
 
 	IOMUXC_SetPinMux (IOMUXC_UART1_CTS_B_GPIO1_IO18, 0);
 	IOMUXC_SetPinConfig (IOMUXC_UART1_CTS_B_GPIO1_IO18, 0xf080);
-	key_cfg.dir = gpio_digital_input;
+	key_cfg.dire = gpio_digital_input;
 	key_cfg.int_mode = gpio_fall_int;
     bsp_gpio_init (GPIO1, kGPIO1_IO18_KEY_PIN, &key_cfg);
 	GIC_EnableIRQ (GPIO1_Combined_16_31_IRQn);

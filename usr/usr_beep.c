@@ -22,7 +22,7 @@ void usr_beep_init(void)
     IOMUXC_SetPinMux(IOMUXC_SNVS_SNVS_TAMPER1_GPIO5_IO01, 0);
     IOMUXC_SetPinConfig(IOMUXC_SNVS_SNVS_TAMPER1_GPIO5_IO01, 0x10b0);
 
-    beep_cfg.dir = gpio_digital_output;
+    beep_cfg.dire = gpio_digital_output;
     beep_cfg.output_logic = gpio_set;
     beep_cfg.int_mode = gpio_no_int;
     bsp_gpio_init(GPIO5, kGPIO5_IO01_BEEP_PIN, &beep_cfg);
