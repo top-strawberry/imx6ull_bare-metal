@@ -9,7 +9,7 @@
 #include "main.h"
 
 #ifdef __cplusplus
-#define "C"{
+extern "C"{
 #endif
 
 #define GPIO_LOG            PRINTF

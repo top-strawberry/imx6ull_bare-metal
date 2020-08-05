@@ -86,23 +86,25 @@ static void bsp_gt9147_gpio01_io09_irq(IRQn_Type irq_num, void *arg)
 
 	if(gt9147_dev.init_flag == emGT9147_INIT_FINISHED) {
 		//GT9147_LOG("bsp_gt9147_gpio01_io09_irq \r\n");
-		bsp_gt9147_read_bytes(kGT9147_ADDR, kGT9147_GSTID_REG,&mode,1);	//读取触摸点的状态
-		bsp_gt9147_write(kGT9147_ADDR, kGT9147_GSTID_REG, &temp, 1);//清标志
-		gt9147_dev.point_num = mode & 0x0f;//触摸点个数
-		for(i = 0; i < gt9147_dev.point_num; i ++){
-			bsp_gt9147_read_bytes(kGT9147_ADDR, GT9147_TPX_TBL[i], buf, 4);//读取对应按下触摸点的坐标
-			gt9147_dev.x[i] = (((uint16_t)buf[1] << 8) + buf[0]);
-			gt9147_dev.y[i] = (((uint16_t)buf[3] << 8) + buf[2]);			
-			if((mode == 0x81)||(mode == 0x82)||(mode == 0x83)||(mode == 0x84)||(mode == 0x85)){
-				/*if((tp_dev.tmp_x == tp_dev.x_val)&&(tp_dev.tmp_y == tp_dev.y_val)){//重复按下某个坐标
-				}else{
-					tp_dev.tmp_x = tp_dev.x_val;
-					tp_dev.tmp_y = tp_dev.y_val;
-					printk("Down..\n");
-				}*/			
+		bsp_gt9147_read_bytes(kGT9147_ADDR, kGT9147_GSTID_REG, &mode, 1);	//读取触摸点的状态
+		bsp_gt9147_write(kGT9147_ADDR, kGT9147_GSTID_REG, &temp, 1);//清标志	
+		gt9147_dev.point_num = mode & 0x0f;//触摸点个数	
+		if(gt9147_dev.point_num){			
+			for(i = 0; i < gt9147_dev.point_num; i ++){
+				bsp_gt9147_read_bytes(kGT9147_ADDR, GT9147_TPX_TBL[i], buf, 4);//读取对应按下触摸点的坐标
+				gt9147_dev.x[i] = (((uint16_t)buf[1] << 8) + buf[0]);
+				gt9147_dev.y[i] = (((uint16_t)buf[3] << 8) + buf[2]);			
+				if((mode == 0x81)||(mode == 0x82)||(mode == 0x83)||(mode == 0x84)||(mode == 0x85)){
+					/*if((tp_dev.tmp_x == tp_dev.x_val)&&(tp_dev.tmp_y == tp_dev.y_val)){//重复按下某个坐标
+					}else{
+						tp_dev.tmp_x = tp_dev.x_val;
+						tp_dev.tmp_y = tp_dev.y_val;
+						printk("Down..\n");
+					}*/			
+				}
 			}
-		}		
-	}	
+		}
+	}
 
     //清除中断表示位 
     bsp_gpio_clear_int_flag(GPIO1, kGPIO1_IO09_GT9147_INT_PIN);
@@ -145,13 +147,13 @@ static const uint8_t GT9147_CFG_TBL1[]=
 	0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
 	0X00,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,
 	0XFF,0XFF,0XFF,0XFF,
-};  
+};
 
 //GT9147配置参数表
 //第一个字节为版本号(0X60),必须保证新的版本号大于等于GT9147内部
 //flash原有版本号,才会更新配置.
 static const uint8_t GT9147_CFG_TBL2[]=
-{ 
+{
 	0x82,0xe0,0x01,0x10,0x01,0x05,0x0d,0x00,0x01,0x08,
 	0x28,0x05,0x50,0x32,0x03,0x05,0x00,0x00,0xff,0xff,
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x89,0x28,0x0a,

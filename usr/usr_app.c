@@ -2,13 +2,34 @@
 
 TOP_INFO usr_app;
 
+/*
+ * @description	: 使能I.MX6U的硬件NEON和FPU
+ * @param 		: 无
+ * @return 		: 无
+ */
+ void imx6ul_hardfpu_enable(void)
+{
+	uint32_t cpacr;
+	uint32_t fpexc;
+
+	/* 使能NEON和FPU */
+	cpacr = __get_CPACR();
+	cpacr = (cpacr & ~(CPACR_ASEDIS_Msk | CPACR_D32DIS_Msk))
+		   |  (3UL << CPACR_cp10_Pos) | (3UL << CPACR_cp11_Pos);
+	__set_CPACR(cpacr);
+
+	fpexc = __get_FPEXC();
+	fpexc |= 0x40000000UL;	
+	__set_FPEXC(fpexc);
+}
+
 static int8_t usr_app_run(TOP_INFO *self)
 {
 	char buf[32] = {0};
 	stRTC_DATETIME rtc_date;
 
 	usr_led_trigger();
-	usr_delay_ms(1);
+	usr_delay_ms(100);
 
 	memset(&rtc_date, 0, sizeof(stRTC_DATETIME));
 	bsp_rtc_get_datetime(&rtc_date);
@@ -27,7 +48,14 @@ static int8_t usr_app_run(TOP_INFO *self)
 	usr_lcd_show_xnum(200 + 72, 130, gt9147_dev.x[3], 5, 16, 0);
 	usr_lcd_show_xnum(200 + 72, 150, gt9147_dev.y[3], 5, 16, 0);
 	usr_lcd_show_xnum(200 + 72, 170, gt9147_dev.x[4], 5, 16, 0);
-	usr_lcd_show_xnum(200 + 72, 190, gt9147_dev.y[4], 5, 16, 0);		 
+	usr_lcd_show_xnum(200 + 72, 190, gt9147_dev.y[4], 5, 16, 0);	
+
+	if(usr_key_get_value() == KEY_PRESS){
+		pwm_dev.pwm_duty += 10;
+		if(pwm_dev.pwm_duty >= 100){
+			pwm_dev.pwm_duty = 0;
+		}
+	}
 
     return 0;
 }
@@ -38,10 +66,12 @@ int8_t usr_app_init(TOP_INFO *self)
 
     memset(self, 0, sizeof(TOP_INFO));
     self->usr_app_run = usr_app_run;
+	imx6ul_hardfpu_enable();	
 	bsp_int_init (topInfo);
 	bsp_clk_init ();
 	bsp_uart_init (UART1, 115200);
 	usr_led_init();
+	usr_key_init();
 	usr_beep_init ();
 	usr_delay_init ();
 	// usr_exti_init (topInfo);

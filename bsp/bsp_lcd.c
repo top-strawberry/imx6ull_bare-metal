@@ -46,10 +46,27 @@ static uint16_t bsp_lcd_read_id(void)
 	return 0;
 }
 
+static int8_t bsp_lcd_bl_init()
+{
+	//stPIN_CFG bl_cfg;
+
+	// bl_cfg.dire = gpio_digital_output;
+	// bl_cfg.output_logic = gpio_set;
+	// bl_cfg.int_mode = gpio_no_int;
+	// IOMUXC_SetPinMux (IOMUXC_GPIO1_IO08_GPIO1_IO08, 0);
+	// IOMUXC_SetPinConfig (IOMUXC_GPIO1_IO08_GPIO1_IO08, 0x01b0);
+	// bsp_gpio_init (GPIO1, kGPIO1_IO08_LCD_BL_PIN, &bl_cfg);
+	// kLCD_BL_SET();
+
+	IOMUXC_SetPinMux (IOMUXC_GPIO1_IO08_PWM1_OUT, 0);
+	IOMUXC_SetPinConfig (IOMUXC_GPIO1_IO08_PWM1_OUT, 0xb090);
+	bsp_pwm_init(PWM1);
+
+	return 0;
+}
+
 static void bsp_lcd_io_init(void)
 {
-	stPIN_CFG bl_cfg;
-
 	IOMUXC_SetPinMux (IOMUXC_LCD_DATA00_LCDIF_DATA00, 0);
 	IOMUXC_SetPinConfig (IOMUXC_LCD_DATA00_LCDIF_DATA00, 0xb9);
 	IOMUXC_SetPinMux (IOMUXC_LCD_DATA01_LCDIF_DATA01, 0);
@@ -107,16 +124,7 @@ static void bsp_lcd_io_init(void)
 	IOMUXC_SetPinMux (IOMUXC_LCD_VSYNC_LCDIF_VSYNC, 0);
 	IOMUXC_SetPinConfig (IOMUXC_LCD_VSYNC_LCDIF_VSYNC, 0xb9);
 
-
-	bl_cfg.dire = gpio_digital_output;
-	bl_cfg.output_logic = gpio_set;
-	bl_cfg.int_mode = gpio_no_int;
-	IOMUXC_SetPinMux (IOMUXC_GPIO1_IO08_GPIO1_IO08, 0);
-	IOMUXC_SetPinConfig (IOMUXC_GPIO1_IO08_GPIO1_IO08, 0x01b0);
-	bsp_gpio_init (GPIO1, kGPIO1_IO08_LCD_BL_PIN, &bl_cfg);
-
-	kLCD_BL_SET();
-
+	bsp_lcd_bl_init();
 }
 
 static void bsp_lcd_reset(uint32_t ms)

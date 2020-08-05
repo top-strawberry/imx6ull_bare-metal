@@ -17,7 +17,7 @@
 #include "bsp_rtc.h"
 #include "bsp_i2c_master.h"
 #include "bsp_gt9147.h"
-
+#include "bsp_pwm.h"
 
 #include "usr_exti.h"
 #include "usr_led.h"
